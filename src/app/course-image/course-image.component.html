@@ -1,0 +1,32 @@
+<!-- @if (imageUrl){
+    <img 
+        #courseImg
+        width="300" 
+        class="course-image"
+        alt="Angular Logo"
+        [src]="imageUrl"
+    >
+} @else {
+    <ng-container *ngTemplateOutlet="noImageTemplate"/>
+} -->
+<img 
+    #courseImg
+    width="300" 
+    class="course-image"
+    alt="Angular Logo"
+    [src]="imageUrl"
+>
+
+<!-- 
+    NOTE: When using *ngIf in the new Angular versions, you need to import
+    CommonModules to the component.
+-->
+<!-- <img 
+    *ngIf="imageUrl; else noImage"
+    width="300" 
+    alt="Angular Logo"
+    [src]="imageUrl"
+>
+<ng-template #noImage>
+    <ng-container *ngTemplateOutlet="noImageTemplate"/>
+</ng-template> -->

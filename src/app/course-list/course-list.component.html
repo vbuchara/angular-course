@@ -1,0 +1,94 @@
+<!-- Pipes -->
+<div class="demo">
+    <div>{{ startDate | date: 'dd/MM/yyyy' }}</div>
+
+    <div>{{ title | titlecase }}</div>
+
+    <div>{{ price | currency: 'BRL' }}</div>
+
+    <div>{{ rate | percent }}</div>
+</div>
+
+<div class="courses" #courseList>
+    <button
+        (click)="onAddCourseClick()"
+    >
+        Add Course
+    </button>
+
+    <ng-template #noImage let-courseName="courseName">
+        <p class="warn">{{ courseName }} image not found</p>
+        <course-image
+            [imageUrl]="'/assets/empty-image.png'"
+        />
+    </ng-template>
+
+    <course-card
+        #firstCard
+        [index]="0"
+        (courseSelected)="onCourseSelected($event)"
+        [course]="courses[0]"
+        [noImageTemplate]="noImage"
+    >
+        <course-image
+            #courseImage
+            [imageUrl]="courses[0].iconUrl"
+        />
+        <div 
+            #courseDescription
+            class="course-description"
+        >
+            {{ courses[0].longDescription }}
+        </div>
+    </course-card>
+
+    @for (
+        course of courses | slice: 1;
+        track trackCourse
+    ) {
+        <course-card
+            [index]="$index + 1"
+            (courseSelected)="onCourseSelected($event)"
+            [course]="course"
+            [class.is-first]="$first"
+            [class.is-last]="$last"
+            [class.is-even]="$even"
+            [class.is-odd]="$odd"
+        >
+            <course-image
+                #courseImage
+                [imageUrl]="course.iconUrl"
+            />
+            <div
+                #courseDescription 
+                class="course-description"
+            >
+                {{ course.longDescription }}
+            </div>
+        </course-card>
+    } @empty {
+        <h2>No Courses Available</h2>
+    }
+    <!-- 
+        NOTE: When using *ngFor in the new Angular versions, you need to import
+        CommonModules to the component.
+    -->
+    <!-- <course-card
+        *ngFor="
+            let course of courses; 
+            trackBy: trackCourse;
+            let index = index;
+            let first = first;
+            let last = last;
+            let even = even;
+            let odd = odd;
+        "
+        [index]="index"
+        (courseSelected)="onCourseSelected($event)"
+        [course]="course"
+        [class.is-first]="first"
+        [class.is-last]="last"
+        [class.is-even]="even"
+        [class.is-odd]="odd"
+    /> -->
+</div>

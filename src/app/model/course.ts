@@ -1,10 +1,11 @@
 
+export type Categories = "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
 
 export interface Course {
-    id:number;
-    description:string;
-    iconUrl: string;
+    id: number;
+    description: string;
+    iconUrl?: string;
     longDescription: string;
-    category:string;
-    lessonsCount:number;
+    category: Categories;
+    lessonsCount?: number;
 }
