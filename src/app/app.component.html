@@ -5,23 +5,45 @@
 
 </div>
 
-
-
-<div class="courses" *ngIf="courses[0] as course">
+<div class="courses blueviolet-theme">
+    <ng-template #noImage>
+        <course-image
+            [src]="'/assets/empty-image.png'"
+        />
+    </ng-template>
 
     <course-card
-            (courseSelected)="onCourseSelected($event)"
-                 [course]="course">
-
-        <course-image [src]="course.iconUrl"></course-image>
-
-        <div class="course-description">
-            {{ course.longDescription }}
+        #highlighter="highlighter"
+        (courseSelected)="onCourseSelected($event)"
+        (onHighlightToggle)="onHighlightToggle($event)"
+        [course]="courses[0]"
+        [noImageTpl]="noImage"
+        highlighted
+    >
+        <course-image 
+            [src]="courses[0].iconUrl"
+            *ngxUnless="!courses[0].iconUrl"
+        />
+        <div 
+            (dblclick)="highlighter.toggleHighlight()"
+            class="course-description"
+        >
+            {{ courses[0].longDescription }}
         </div>
-
     </course-card>
 
-
+    <course-card
+        (courseSelected)="onCourseSelected($event)"
+        [course]="courses[1]"
+        [noImageTpl]="noImage"
+    >
+        <course-image 
+            [src]="courses[1].iconUrl"
+        />
+        <div class="course-description">
+            {{ courses[1].longDescription }}
+        </div>
+    </course-card>
 </div>
 
 

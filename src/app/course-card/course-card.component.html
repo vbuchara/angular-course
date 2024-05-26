@@ -5,19 +5,16 @@
         {{ cardIndex || '' + ' ' + course.description }}
     </div>
 
-    <ng-content select="course-image"
-                *ngIf="course.iconUrl; else noImage"></ng-content>
-
+    <ng-content 
+        select="course-image"
+        *ngIf="course.iconUrl; else noImage"
+    />
+    
     <ng-template #noImage>
-
-        <ng-container
-                *ngTemplateOutlet="noImageTpl;context: {description:course.description}">
-
-        </ng-container>
-
+        <ng-container *ngTemplateOutlet="noImageTpl"/>
     </ng-template>
 
-    <ng-content select=".course-description"></ng-content>
+    <ng-content select=".course-description"/>
 
     <div class="course-category" [ngSwitch]="course.category">
 

@@ -11,12 +11,16 @@ import {
     Output, QueryList, TemplateRef,
     ViewChild
 } from '@angular/core';
-import {COURSES} from '../../db-data';
 import {Course} from '../model/course';
 import {CourseImageComponent} from '../course-image/course-image.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'course-card',
+    standalone: true,
+    imports: [
+        CommonModule,
+    ],
     templateUrl: './course-card.component.html',
     styleUrls: ['./course-card.component.css']
 })
@@ -27,6 +31,9 @@ export class CourseCardComponent implements OnInit, AfterViewInit, AfterContentI
 
     @Input()
     cardIndex: number;
+
+    @Input()
+    noImageTpl: TemplateRef<any>;
 
     @Output('courseSelected')
     courseEmitter = new EventEmitter<Course>();
